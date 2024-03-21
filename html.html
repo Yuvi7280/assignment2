@@ -1,0 +1,107 @@
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body style="background-color: rgb(223, 231, 223);font-family: Arial, sans-serif">
+    <script>
+        // Initialize an empty string to store calculator input
+let string = "";
+     const div1 = document.createElement('div');
+     div1.id="calculator";
+     document.body.appendChild(div1);
+     const div2 = document.createElement('div');
+     div2.id="screen";
+     div1.appendChild(div2);
+     const div3 = document.createElement('div');
+     div3.id="calc";
+     div2.appendChild(div3);
+     const div4 = document.createElement('div');
+     div4.id="result";
+     div2.appendChild(div4);
+     div1.style.width = "400px";
+     div1.style.margin= "100px";
+     div1.style.textAlign= "center";
+     div1.style. border= "8px solid black"; 
+     div1.style.borderRadius= "10px";
+     div1.style.marginLeft= "35%"; 
+     div1.style.backgroundColor= "rgb(30, 32, 30)";
+     div2.style.marginBottom= "10px";
+     div2.style.padding= "20px 30px"; //first value applies to top and bottom padding and second to right and left
+     div2.style.fontSize= "24px"; 
+     div2.style.fontWeight= "bold"; 
+     div2.style.border= "none"; 
+     div2.style.borderRadius= "5px"; 
+     div2.style.border= "1px solid black"; 
+     div2.style.backgroundColor= "rgb(232, 239, 232)";
+
+// Create buttons dynamically
+const buttonValues = ['C', '/', '*', '+', '7', '8','9', '-', '4', '5', '6', '.', '1', '2', '3', '=', '0'];
+const calculator = document.getElementById('calculator');
+
+buttonValues.forEach(value => {
+    const button = document.createElement('button');
+    button.textContent = value;//value use kiya hai uper function mein values dalne k liye
+    button.className="value";//button ki class value hai,value use kiya hai styles.css mein se .value ka design add krne k liye
+    calculator.appendChild(button);//div jo calculator ka hai ,uska button
+    button.style.width="50px";
+    button.style.height= "50px";
+    button.style.fontSize= "20px";
+    button.style. margin= "8px";
+    button.style. cursor= "pointer";
+    button.style. backgroundColor= "purple"; 
+	button.style.color= "white"; 
+    button.style. border= "2px solid #ccc";
+    button.style.borderRadius= "10px";
+	button.style.padding= "20px 40px"; 
+	button.style.fontSize= "25px"; 
+	button.style.fontWeight= "bold";
+    // Click event for digit buttons
+    button.addEventListener('click', function () {
+        handleInput(this.textContent);//neeche function bnaya hai vo use kiya hai jiska naam hai handleInput
+    });
+});
+
+// Handle keyboard input
+document.addEventListener('keydown', function (event) //element: keyDown event is used
+{
+    const keyPressed = event.key;//checking which key is being pressed and store in keyPressed
+    if (/[0-9+\-*/.=]/.test(keyPressed)) {
+        handleInput(keyPressed);//neeche function bnaya hai vo use kiya hai jiska naam hai handleInput
+    }
+    if (/Enter/.test(keyPressed)) {
+        handleInput(keyPressed);
+      }
+      if (/Backspace/.test(keyPressed)) {
+        handleInput(keyPressed);
+      }
+});
+
+function handleInput(input) {
+    
+    if (input === '='||input === 'Enter') {
+        try {
+            const result = eval(string);//eval is a method preasent in js to execute an argument
+            document.getElementById('result').textContent = result;
+        } catch (error) {
+            alert("Error")
+        }
+    }
+     else if (input === 'C'||input === 'Backspace') {
+        string = "";
+        document.getElementById('calc').textContent = "";//yahan pehle 0 tha ,ab htaya hai
+        document.getElementById('result').textContent = "";//yahan pehle 0 tha ,ab htaya hai
+    }
+     
+    else {
+        string += input;
+        document.getElementById('calc').textContent = string;
+    }
+}
+
+    </script> 
+</body>
+</html>
